@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Livestreamer</title>
+
+</head>
+<body>
+
+	<div tiles:fragment="searchForm" class="search-box">
+		<form role="form"  th:action="@{/page/channelSearch/result}" th:method="${'post'}">
+					<input type="hidden" name="context" id="context" th:value="${context}" />
+					<span id="search-page-border"> <label
+						class="accessibly-hidden">Search for:</label>
+						<input id="singleFieldTags2" type="text" class="search-terms"  placeholder="Search Videos And TV Channel" style="width:350px;height:35px;" />
+					</span>
+					<input type="text" required="required" name="tagName" id="tagName" style="display: none" />
+                    <input type="hidden" name="contentType" value="channel" />
+						<input type="submit" name="search-submit" id="search-submit"
+							value="" />
+				</form>	
+				
+				<script type="text/javascript">
+				    var context = $('#context').val();
+					var u = context+"/api/tags";
+					$('#singleFieldTags2').textext({
+						plugins : 'autocomplete filter tags ajax',
+						ajax : {
+							url : u,
+							dataType : 'json',
+							cacheResults : true
+						}
+					});
+				</script>
+				<script>
+					(function() {
+						var txt = $('#singleFieldTags2');
+						var output = $('#tagName');
+
+						txt.bind('setFormData', function(e, data, isEmpty) {
+						});
+
+					})();
+				</script>
+	</div>
+
+
+</body>
+
+</html>

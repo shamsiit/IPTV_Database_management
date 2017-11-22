@@ -1,0 +1,56 @@
+
+<script type="text/javascript">
+
+function vodAjax(own){
+	var url = $("#context").val() + "/page/searchVodByTag/result/"+$(own).text();
+	//alert(url);
+	$.ajax({
+	    type : "GET",
+	    url : url,
+	    success: function(data){
+	    $("#vodFragment").html(data);
+	    }
+	});
+}
+
+</script>
+
+	<div id="vodFragment " class="thumble-to">
+		<ul id="products" class="grid clearfix">
+			<!-- row 1 -->
+			<h1>Videos</h1>
+
+			<li class="clearfix" th:each="vod : ${searchedVodList}">
+				<section class="left">
+					<a th:href="@{'/page/vodPlay/'+${vod.videoId}}">
+						<div class="play-ic"></div>
+					</a> <img width="150px" height="100px"
+						th:src="@{~/images/}+${vod.poster}" alt="default thumb" />
+				</section>
+				<section class="right">
+					<span class="thu-tex"> <a
+						th:href="@{'/page/vodPlay/'+${vod.videoId}}">
+							<h4 th:text="${vod.videoName}"></h4>
+							<h6 th:text="${vod.tag}"></h6>
+					</a>
+						<p>by relaxdaily &nbsp;&nbsp;&nbsp;37,239,063 views</p>
+					</span> <span class="darkview">
+						<p>DNews is dedicated to satisfying your curiosity and to
+							bringing you mind-bending stories and perspectives you won't find
+							anywhere else. New videos, twice daily!</p>
+					</span>
+
+				</section>
+			</li>
+
+
+		</ul>
+		<div class="container">
+			<div>
+				<ul class="pagination">
+					<li th:each="i : ${#numbers.sequence( 1, totalVod/1)}"><a
+						class="pageLinkVod" href="#" th:text="${i}" onclick="vodAjax(this)"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>

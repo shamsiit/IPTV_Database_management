@@ -1,0 +1,53 @@
+
+
+<script type="text/javascript">
+
+function channelAjaxFilter(own){
+	var url = $("#context").val() + "/page/searchChannelFilter/result/"+$(own).text();
+	//alert(url);
+	$.ajax({
+	    type : "GET",
+	    url : url,
+	    success: function(data){
+	    $("#channelFragment").html(data);
+	    }
+	});
+}
+</script>
+
+<div  id="channelFragment" class="thumble-to" >
+				<ul id="products" class="grid clearfix">
+					<!-- row 1 -->
+				<h1>Live channels</h1>
+					<li class="clearfix" th:each="channel : ${searchedChannelList}">
+						<section class="left">
+							<a th:href="@{'/page/channelPlay/'+${channel.channelId}}">
+								<div class="play-ic"></div>
+							</a> 
+							<img width="150px" height="100px" th:src="@{~/images/}+${channel.logo}" alt="default thumb" />
+						</section>
+						<section class="right">
+							<span class="thu-tex"> 
+							<a th:href="@{'/page/channelPlay/'+${channel.channelId}}">
+									<h4 th:text="${channel.channelName}"></h4>
+									<h6 th:text="${channel.tag}"></h6>
+							</a>
+								<p>by relaxdaily &nbsp;&nbsp;&nbsp;37,239,063 views</p>
+							</span> <span class="darkview">
+								<p>DNews is dedicated to satisfying your curiosity and to bringing you mind-bending stories and perspectives you won't find anywhere else. New videos, twice daily!</p>
+							</span>
+
+						</section>
+					</li>
+					
+
+				</ul>
+				<div class="container">
+					<div>
+						<ul class="pagination">
+							<li th:each="i : ${#numbers.sequence( 1, totalChannel/1)}"><a class="pageLinkLiveChannelFilter"
+								href="#" th:text="${i}" onclick="channelAjaxFilter(this)"></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
